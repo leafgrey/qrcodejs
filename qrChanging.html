@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+	<title>index</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="qrcode.js"></script>
+</head>
+<body>
+<div id="qrcode0" style="width:300px; height:300px; margin-top:15px;border: 0;"></div>
+<!-- ------------------------------------ -->
+<a target="_blank" id="downloadMe" class="verifyInfo" title="点击查看后右键或者ctrl+s,保存图片到本地" href="" download="new.bmp">
+	点我下载
+</a>
+<script type="text/javascript">
+	let count = 0;
+	let countColor = 100;
+	let countColor1 = 0;
+	let countColor2 = 0;
+	let countColor3 = 0;
+	let countColor4 = 0;
+	let countColor5 = 0;
+	let countColor6 = 0;
+	let colorMax = 15;
+	// 全0 为黑色
+	let colorStr = "#"+countColor1+countColor2+countColor3+countColor4+countColor5+countColor6;
+	let enTxt = "http://1.singbon.com/qrdt.do?dsn=99391089c29680c899391089c29680c899391089c29680c8a00996e3cde3377391f2e222f1af8a27";
+	/*--------------------------*/
+	var qrcode0 = new QRCode(document.getElementById("qrcode0"),{
+		text:enTxt,
+		width:300,
+		height:300,
+		colorDark:colorStr,
+		colorLight:"#FFFFFF",
+		correctLevel:QRCode.CorrectLevel.L
+	});
+	setInterval(function(){
+		document.getElementById("downloadMe").href = document.getElementById("newQrImg").src;
+	},500);
+	// setTimeout(function(){
+	// 	document.getElementById("downloadMe").href = document.getElementById("newQrImg").src;
+	// },500);
+	setInterval(function(){
+		console.log(count);
+		console.log(document.getElementById("newQrImg").src.length);
+		/*---------------------------------------*/
+		//  变换复杂度
+		count = count+1;
+		if(count>3){
+			count = 0;
+		}
+		/*---------------------------------------*/
+		//  变换颜色
+		countColor = countColor+1;
+		if(countColor%2===0){
+			countColor1 = countColor1+1;
+		}
+		else if(countColor%3===0){
+			countColor2 = countColor2+1;
+		}
+		else if(countColor%4===0){
+			countColor3 = countColor3+1;
+		}
+		else if(countColor%5===0){
+			countColor4 = countColor4+1;
+		}
+		else if(countColor%7===0){
+			countColor5 = countColor5+1;
+		}
+		else if(countColor%9===0){
+			countColor6 = countColor6+1;
+		}
+		if(countColor>999){
+			countColor = 0;
+		}
+		if(countColor1>colorMax){
+			countColor1 = 0;
+		}
+		if(countColor2>colorMax){
+			countColor2 = 0;
+		}
+		if(countColor3>colorMax){
+			countColor3 = 0;
+		}
+		if(countColor4>colorMax){
+			countColor4 = 0;
+		}
+		if(countColor5>colorMax){
+			countColor5 = 0;
+		}
+		if(countColor6>colorMax){
+			countColor6 = 0;
+		}
+		console.log("1:"+countColor1.toString(16));
+		console.log("2:"+countColor2.toString(16));
+		console.log("3:"+countColor3.toString(16));
+		console.log("4:"+countColor4.toString(16));
+		console.log("5:"+countColor5.toString(16));
+		console.log("6:"+countColor6.toString(16));
+		colorStr = "#"+countColor1.toString(16)+countColor2.toString(16)+countColor3.toString(16)+countColor4.toString(16)+countColor5.toString(16)+countColor6.toString(16);
+		console.log(colorStr);
+		/*---------------------------------------*/
+		/*----------------------------------------------*/
+		//  重绘二维码
+		qrcode0.clear();
+		document.getElementById("qrcode0").innerHTML = "";
+		qrcode0 = new QRCode(document.getElementById("qrcode0"),{
+			text:enTxt,
+			width:300,
+			height:300,
+			colorDark:colorStr,
+			//colorDark:"#000000",
+			colorLight:"#FFFFFF",
+			// correctLevel:0
+			correctLevel:count
+		});
+		/*----------------------------------------------*/
+	},2000);
+</script>
+</body>

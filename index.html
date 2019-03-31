@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+	<title>index</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="qrcode.js"></script>
+</head>
+<body>
+<div id="qrcode" style="width:300px; height:300px; margin-top:15px;border: 0;"></div>
+<!-- ------------------------------------ -->
+<a target="_blank" id="downloadMe" class="verifyInfo" title="点击查看后右键或者ctrl+s,保存图片到本地" href="" download="new.bmp">
+	点我下载
+</a>
+<script type="text/javascript">
+	// 全0 为黑色
+	let enTxt = "http://1.singbon.com/qrdt.do?dsn=99391089c29680c899391089c29680c899391089c29680c8a00996e3cde3377391f2e222f1af8a27";
+	/*--------------------------*/
+	new QRCode(document.getElementById("qrcode"),{
+		text:enTxt,
+		width:300,
+		height:300,
+		colorDark:"#000000",
+		colorLight:"#FFFFFF",
+		correctLevel:QRCode.CorrectLevel.L
+	});
+	setInterval(function(){
+		document.getElementById("downloadMe").href = document.getElementById("newQrImg").src;
+	},500);
+</script>
+</body>

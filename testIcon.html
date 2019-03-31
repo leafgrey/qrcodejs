@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+	<title>indexWithIcon</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="qrcode.addicon.js"></script>
+</head>
+<body>
+<div id="qrcode" style="width:300px; height:300px; margin-top:15px;border: 0;"></div>
+<!-- ------------------------------------ -->
+<a target="_blank" id="downloadMe" class="verifyInfo" title="点击查看后右键或者ctrl+s,保存图片到本地" href="" download="new.bmp">
+	点我下载
+</a>
+<script type="text/javascript">
+	let enTxt = "http://1.singbon.com/qrdt.do?dsn=99391089c29680c899391089c29680c899391089c29680c8a00996e3cde3377391f2e222f1af8a27";
+	// let imgPath = "https://avatars0.githubusercontent.com/u/17268394?s=400&amp;u=5187f48f142aecaa279593ac514211bcca3ec319&amp;v=4";
+	let imgPath = "17268394.jpg";
+	new QRCode(document.getElementById("qrcode"),{
+		text:enTxt,
+		width:300,
+		height:300,
+		colorDark:'#000000',
+		colorLight:'#ffffff',
+		correctLevel:QRCode.CorrectLevel.L,
+		iconSrc:imgPath,
+		iconRadius:10,
+		iconBorderWidth:10,
+		iconBorderColor:"white",
+	});
+	setTimeout(function(){
+		document.getElementById("downloadMe").href = document.getElementById("newQrImg").src;
+	},1000);
+	setTimeout(function(){
+		var c = document.getElementById("newQrCanvasImg");
+		// console.log(c.toDataURL("image/jpeg", 1.0));
+		console.log(c.toDataURL("image/bmp"),1.0);
+		console.log('-------------------------------------------------------------');
+		console.log(document.getElementById("newQrImg").src);
+	},1000);
+</script>
+</body>
