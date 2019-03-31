@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>index</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="qrcode.js"></script>
+</head>
+<body>
+<div id="qrcode" style="width:320px; height:320px; margin-top:15px;border: 0;">
+	<img id="imgFinal" src="" alt="The Scream" width="300" height="300" style="display:none">
+	<img id="imgFinal2" src="" alt="The Scream" width="300" height="300" style="display:none">
+	<canvas id="myCanvas" width="320" height="320" style="display:none;">
+		您的浏览器不支持 HTML5 canvas 标签。
+	</canvas>
+</div>
+<hr>
+<!-- ------------------------------------ -->
+<a target="_blank" id="downloadMe" class="verifyInfo" title="点击查看后右键或者ctrl+s,保存图片到本地" href="" download="new.bmp">
+	点我下载
+</a>
+<script type="text/javascript">
+	// 全0 为黑色
+	let enTxt = "http://1.singbon.com/qrdt.do?dsn=99391089c29680c899391089c29680c899391089c29680c8a00996e3cde3377391f2e222f1af8a27";
+	/*--------------------------*/
+	new QRCode(document.getElementById("qrcode"),{
+		text:enTxt,
+		width:300,
+		height:300,
+		colorDark:"#000000",
+		colorLight:"#FFFFFF",
+		correctLevel:QRCode.CorrectLevel.L
+	});
+	let myCanvas = document.getElementById("myCanvas");
+	let imgFinal = document.getElementById("imgFinal");
+	let imgFinal2 = document.getElementById("imgFinal2");
+	let imgQr = document.getElementById("newQrImg");
+	let imgCanvasQr = document.getElementById("newQrCanvasImg");
+	let downLoad = document.getElementById("downloadMe");
+	setTimeout(function(){
+		console.log("begin dradimg");
+		imgQr.style.display = "none";
+		var ctx = myCanvas.getContext("2d");
+		imgFinal.src = imgQr.src;
+		imgFinal.onload = function(){
+			ctx.drawImage(imgFinal,10,10);
+		};
+		myCanvas.style.display = "block";
+		// imgFinal2.src = myCanvas.toDataURL("image/bmp",1.0);
+		// imgFinal2.style.display = "block";
+		downLoad.href = myCanvas.toDataURL("image/bmp",1.0);
+		// imgFinal.remove();
+		// imgQr.remove();
+		// imgCanvasQr.remove();
+		// myCanvas.remove();
+	},1000);
+</script>
+</body>

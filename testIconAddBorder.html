@@ -17,6 +17,8 @@
 </div>
 <!-- ------------------------------------ -->
 <script type="text/javascript">
+	// // [].slice.call(document.getElementsByTagName('*')).forEach
+	// ((ele) => {ele.style.setProperty('border', '1px solid #' + Math.random().toString(16).slice(2, 8));})
 	let enTxt = "http://1.singbon.com/qrdt.do?dsn=99391089c29680c899391089c29680c899391089c29680c8a00996e3cde3377391f2e222f1af8a27";
 	// let imgPath = "https://avatars0.githubusercontent.com/u/17268394?s=400&amp;u=5187f48f142aecaa279593ac514211bcca3ec319&amp;v=4";
 	let imgPath = "17268394.jpg";
@@ -29,19 +31,19 @@
 		correctLevel:QRCode.CorrectLevel.L,
 		iconSrc:imgPath,
 		iconRadius:10,
-		iconBorderWidth:10,
+		iconBorderWidth:20,
 		iconBorderColor:"white",
 	});
 	setTimeout(function(){
 		document.getElementById("downloadMe").href = document.getElementById("newQrImg").src;
 	},1000);
-	setTimeout(function(){
-		let c = document.getElementById("newQrCanvasImg");
+	// setTimeout(function(){
+		// let c = document.getElementById("newQrCanvasImg");
 		// console.log(c.toDataURL("image/jpeg", 1.0));
 		//console.log(c.toDataURL("image/bmp"),1.0);
-		console.log('-------------------------------------------------------------');
+		// console.log('-------------------------------------------------------------');
 		//console.log(document.getElementById("newQrImg").src);
-	},1000);
+	// },1000);
 </script>
 </body>
 </html>

@@ -720,11 +720,11 @@ var QRCode;
 			var nCount = oQRCode.getModuleCount();
 			var nWidth = Math.floor(_htOption.width/nCount);
 			var nHeight = Math.floor(_htOption.height/nCount);
-			var aHTML = ['<table style="border:0;border-collapse:collapse;">'];
+			var aHTML = ['<table style="border:10px;border-collapse:collapse;">'];
 			for(var row = 0; row<nCount; row++){
 				aHTML.push('<tr>');
 				for(var col = 0; col<nCount; col++){
-					aHTML.push('<td style="border:0;border-collapse:collapse;padding:0;margin:0;width:'+nWidth+'px;height:'+nHeight+'px;background-color:'+(oQRCode.isDark(row,col) ? _htOption.colorDark : _htOption.colorLight)+';"></td>');
+					aHTML.push('<td style="border:10px;border-collapse:collapse;padding:0;margin:0;width:'+nWidth+'px;height:'+nHeight+'px;background-color:'+(oQRCode.isDark(row,col) ? _htOption.colorDark : _htOption.colorLight)+';"></td>');
 				}
 				aHTML.push('</tr>');
 			}
@@ -751,8 +751,6 @@ var QRCode;
 			// this._elImage.setAttribute("crossOrigin",'Anonymous');
 			this._elImage.src = this._elCanvas.toDataURL("image/png");
 			this._elImage.style.display = "block";
-			// zchAdd
-			this._elImage.style.border = "5px solid white";
 			this._elCanvas.style.display = "none";
 		}
 		// Android 2.1 bug workaround
@@ -813,7 +811,7 @@ var QRCode;
 			else if(self._bSupportDataURI===false && self._fFail){
 				self._fFail.call(self);
 			}
-		};
+		}
 		/**
 		 * Drawing QRCode by using canvas
 		 *
@@ -830,20 +828,14 @@ var QRCode;
 			this._elCanvas.height = htOption.height;
 			// zchAdd
 			this._elCanvas.id = "newQrCanvasImg";
-			// [].slice.call(document.getElementsByTagName('*')).forEach
-			// ((ele) => {ele.style.setProperty('border', '1px solid #' + Math.random().toString(16).slice(2, 8));})
 			el.appendChild(this._elCanvas);
 			this._el = el;
 			this._oContext = this._elCanvas.getContext("2d");
 			this._bIsPainted = false;
 			this._elImage = document.createElement("img");
-			// zchAdd
-			// zchAdd
-			this._elImage.style.border = "5px solid white";
 			this._elImage.alt = "Scan me!";
 			// zchAdd 190330
 			this._elImage.id = "newQrImg";
-			// this._elImage.style.border = "5px solid white";
 			this._elImage.style.display = "none";
 			this._el.appendChild(this._elImage);
 			this._bSupportDataURI = null;
@@ -863,8 +855,6 @@ var QRCode;
 			var nRoundedWidth = Math.round(nWidth);
 			var nRoundedHeight = Math.round(nHeight);
 			_elImage.style.display = "none";
-			// zch
-			_elImage.style.border = "5px solid white";
 			this.clear();
 			for(var row = 0; row<nCount; row++){
 				for(var col = 0; col<nCount; col++){
@@ -894,7 +884,7 @@ var QRCode;
 		};
 		function drawRoundRect(ctx,x,y,width,height,radius,lineWidth,lineColor){
 			ctx.lineWidth = lineWidth;
-			ctx.strokeStyle = lineColor
+			ctx.strokeStyle = lineColor;
 			ctx.beginPath();
 			ctx.arc(x+radius,y+radius,radius,Math.PI,Math.PI*3/2);
 			ctx.lineTo(width-radius+x,y);
@@ -905,7 +895,7 @@ var QRCode;
 			ctx.arc(radius+x,height-radius+y,radius,Math.PI*1/2,Math.PI);
 			ctx.closePath();
 			ctx.stroke();
-		};
+		}
 		Drawing.prototype.addIcon = async function(iconSrc){
 			//通过ES6的async/await语法将异步的Promise转为同步方法
 			const image = await new Promise((resolve,reject)=>{
@@ -1040,7 +1030,7 @@ var QRCode;
 			colorLight:"#ffffff",
 			correctLevel:QRErrorCorrectLevel.H,
 			iconSrc:undefined,
-			iconBorderWidth:1,
+			iconBorderWidth:10,
 			iconBorderColor:"black",
 		};
 		if(typeof vOption==='string'){
