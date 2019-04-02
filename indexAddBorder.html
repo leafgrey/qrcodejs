@@ -41,19 +41,26 @@
 	setTimeout(function(){
 		console.log("begin dradimg");
 		imgQr.style.display = "none";
-		var ctx = myCanvas.getContext("2d");
+		let ctx = myCanvas.getContext("2d");
 		imgFinal.src = imgQr.src;
 		imgFinal.onload = function(){
 			ctx.drawImage(imgFinal,10,10);
 		};
-		myCanvas.style.display = "block";
-		// imgFinal2.src = myCanvas.toDataURL("image/bmp",1.0);
-		// imgFinal2.style.display = "block";
-		downLoad.href = myCanvas.toDataURL("image/bmp",1.0);
+		// myCanvas.style.display = "block";
+		/*----------------------------------*/
+		let ctx2 = myCanvas.getContext("2d");
+		imgFinal2.src = imgFinal.src;
+		imgFinal2.onload = function(){
+			ctx2.drawImage(imgFinal2,10,10);
+		};
+		imgFinal2.style.display="block";
+		downLoad.src = imgFinal2.src;
+		/*----------------------------------*/
 		// imgFinal.remove();
 		// imgQr.remove();
 		// imgCanvasQr.remove();
 		// myCanvas.remove();
+		/*----------------------------------*/
 	},1000);
 </script>
 </body>
