@@ -10,3 +10,5 @@ https://blog.csdn.net/csl125/article/details/79214929
 
  
 实现生成二维码 添加icon 整个二维码添加边框 并下载图片功能
+
+演示：https://zghnzch.github.io/qrcodejs/index.html
