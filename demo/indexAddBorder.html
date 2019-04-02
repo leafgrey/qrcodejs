@@ -1,66 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 <head>
-	<title>index</title>
+	<title>二维码生成下载</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
-	<script type="text/javascript" src="../static/js/jquery.min.js"></script>
-	<script type="text/javascript" src="../static/js/qrcode.js"></script>
+	<script type="text/javascript" src="static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="static/js/qrcode.addicon.js"></script>
+	<!-- html2canvas将Dom节点在Canvas里边画出来 -->
+	<script type="text/javascript" src="static/js/html2canvas/html2canvas.min.js"></script>
+	<!-- 将canvas图片保存成图片 -->
+	<script type="text/javascript" src="static/js/html2canvas/canvas2image.js"></script>
+	<script type="text/javascript" src="static/js/html2canvas/base64.js"></script>
 </head>
 <body>
-<div id="qrcode" style="width:320px; height:320px; margin-top:15px;border: 0;">
+<button id="makeQr">生成</button>
+<button id="Download">下载图片</button>
+<div id="qrcode" style="width:320px; height:320px; margin-top:15px;border: 0;display:none">
 	<img id="imgFinal" src="" alt="The Scream" width="300" height="300" style="display:none">
-	<img id="imgFinal2" src="" alt="The Scream" width="300" height="300" style="display:none">
-	<canvas id="myCanvas" width="320" height="320" style="display:none;">
+	<canvas id="myCanvas" width="320" height="320" style="display:none;color:black">
 		您的浏览器不支持 HTML5 canvas 标签。
 	</canvas>
 </div>
-<hr>
-<!-- ------------------------------------ -->
-<a target="_blank" id="downloadMe" class="verifyInfo" title="点击查看后右键或者ctrl+s,保存图片到本地" href="" download="new.bmp">
-	点我下载
-</a>
 <script type="text/javascript">
-	// 全0 为黑色
-	let enTxt = "http://1.singbon.com/qrdt.do?dsn=99391089c29680c899391089c29680c899391089c29680c8a00996e3cde3377391f2e222f1af8a27";
-	/*--------------------------*/
-	new QRCode(document.getElementById("qrcode"),{
-		text:enTxt,
-		width:300,
-		height:300,
-		colorDark:"#000000",
-		colorLight:"#FFFFFF",
-		correctLevel:QRCode.CorrectLevel.L
-	});
-	let myCanvas = document.getElementById("myCanvas");
-	let imgFinal = document.getElementById("imgFinal");
-	let imgFinal2 = document.getElementById("imgFinal2");
-	let imgQr = document.getElementById("newQrImg");
-	let imgCanvasQr = document.getElementById("newQrCanvasImg");
-	let downLoad = document.getElementById("downloadMe");
-	setTimeout(function(){
-		console.log("begin dradimg");
+	<!-- 引入文件需要重新调整 因为使用了新的qr	-->
+	let makeQr = document.getElementById("makeQr");
+	makeQr.onclick = function(){
+		let enTxt = "http://1.singbon.com/qrdt.do?dsn=99391089c29680c899391089c29680c899391089c29680c8a00996e3cde3377391f2e222f1af8a27";
+		let imgPath = "static/img/17268394.jpg";
+		let qrcode = document.getElementById("qrcode");
+		new QRCode(qrcode,{
+			text:enTxt,
+			width:300,
+			height:300,
+			colorDark:'#000000',
+			colorLight:'#ffffff',
+			correctLevel:QRCode.CorrectLevel.L,
+			iconSrc:imgPath,
+			iconRadius:10,
+			iconBorderWidth:10,
+			iconBorderColor:"white",
+		});
+		/*最先生成---------*/
+		let imgQr = document.getElementById("newQrImg");
 		imgQr.style.display = "none";
-		let ctx = myCanvas.getContext("2d");
-		imgFinal.src = imgQr.src;
-		imgFinal.onload = function(){
-			ctx.drawImage(imgFinal,10,10);
-		};
-		// myCanvas.style.display = "block";
-		/*----------------------------------*/
-		let ctx2 = myCanvas.getContext("2d");
-		imgFinal2.src = imgFinal.src;
-		imgFinal2.onload = function(){
-			ctx2.drawImage(imgFinal2,10,10);
-		};
-		imgFinal2.style.display="block";
-		downLoad.src = imgFinal2.src;
-		/*----------------------------------*/
-		// imgFinal.remove();
-		// imgQr.remove();
-		// imgCanvasQr.remove();
-		// myCanvas.remove();
-		/*----------------------------------*/
-	},1000);
+		let imgCanvasQr = document.getElementById("newQrCanvasImg");
+		/*修补边框---------*/
+		let myCanvas = document.getElementById("myCanvas");
+		let imgFinal = document.getElementById("imgFinal");
+		/*下载---------*/
+		setTimeout(function(){
+			console.log("begin draw img");
+			let ctx = myCanvas.getContext("2d");
+			imgFinal.src = imgQr.src;
+			imgFinal.onload = function(){
+				ctx.drawImage(imgFinal,10,10);
+			};
+			myCanvas.style.display = "block";
+		},500);
+		qrcode.style.display = "block";
+	};
+	/*
+	 * 说明
+	 * 不支持跨域图片
+	 * 不能在浏览器插件中使用
+	 * 部分浏览器上不支持SVG图片
+	 * 不支持Flash
+	 */
+	let Download = document.getElementById("Download");
+	Download.onclick = function(){
+		var oCanvas = document.getElementById("myCanvas");
+		/*自动保存为png*/
+		// 获取图片资源
+		var img_data1 = Canvas2Image.saveAsPNG(oCanvas,true).getAttribute('src');
+		saveFile(img_data1,'qr.bmp');
+	};
+	// 保存文件函数
+	var saveFile = function(data,filename){
+		var save_link = document.createElementNS('http://www.w3.org/1999/xhtml','a');
+		save_link.href = data;
+		save_link.download = filename;
+		var event = document.createEvent('MouseEvents');
+		event.initMouseEvent('click',true,false,window,0,0,0,0,0,false,false,false,false,0,null);
+		save_link.dispatchEvent(event);
+	};
 </script>
 </body>
+</html>
